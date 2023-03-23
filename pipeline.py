@@ -38,9 +38,9 @@ statisticalParity = datasetMetrics.disparate_impact()
 predictiveParity = datasetMetrics.statistical_parity_difference()
 fairnessThroughAwareness = datasetMetrics.consistency()
 
-print("Statistical Parity = " + str(statisticalParity))
-print("Predictive Parity = " + str(predictiveParity))
-print("Fairness Through Awareness = " + str(fairnessThroughAwareness[0]))
+#print("Statistical Parity = " + str(statisticalParity))
+#print("Predictive Parity = " + str(predictiveParity))
+#print("Fairness Through Awareness = " + str(fairnessThroughAwareness[0]))
 
 '''''
 Data Smell Assessment:
@@ -102,7 +102,10 @@ def _contains_casing_smell(element: str, same_case_wordcount_threshold: int) -> 
 
 for id, row in df.iterrows():
      for element in row:
-        if(-_contains_casing_smell(element=str(element), same_case_wordcount_threshold=1) == -1):
-            print(str(element) + " is smelly")
+        if(-_contains_casing_smell(element=str(element), same_case_wordcount_threshold=2) == -1):
+            casesmell = 1
+            #print(str(element) + " is smelly")
 
-
+output = {"name": "German Credit Risk", "Statistical Parity": statisticalParity , "Predictive Parity": predictiveParity , "Fairness Through Awareness": fairnessThroughAwareness, "Casing Smell": casesmell}
+df = pd.DataFrame(data = output)
+print(df)
