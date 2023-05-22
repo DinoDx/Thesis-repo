@@ -57,6 +57,7 @@ results = soup.find(id="myTabContent")
 
 tables = soup.find_all('table')
 
+
 df = pd.DataFrame()
 
 # Iterate through each table and extract data into the DataFrame
