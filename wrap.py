@@ -70,7 +70,7 @@ def smell_detection(path):
         temp_df = pd.DataFrame(rows, columns=header)
         
         # Append the temporary DataFrame to the main DataFrame
-        df = df.append(temp_df, ignore_index=True)
+        df = pd.concat([df, temp_df])
 
     # Print the resulting DataFrame
     df = df.dropna()
