@@ -5,12 +5,19 @@ from fairness import fairness_assessment
 
 
 meta_dataset = pd.read_csv('meta_dataset.csv')
-df = pd.DataFrame()
+fairness = pd.DataFrame()
+smells = pd.DataFrame()
 
 for i in range(len(meta_dataset)):
 
-    tempdf = smell_detection(meta_dataset['path'][i])
-    tempdf['name'] = meta_dataset['name'][i]
+    temp_smells = smell_detection(meta_dataset['path'][i])
+    temp_smells['name'] = meta_dataset['name'][i]
+    smells = smells.append(temp_smells)
+    
+    
+    
+    
+    
     statisticalParity, predictiveParity, fairnessThroughAwareness = fairness_assessment(path=meta_dataset['path'][i],
                                                                     label_name=meta_dataset['label_name'][i],
                                                                     favorable_classes=meta_dataset['favorable_classes'][i],
@@ -20,10 +27,16 @@ for i in range(len(meta_dataset)):
                                                                     privileged_groups=meta_dataset['privileged_groups'][i],
                                                                     unprivileged_groups=meta_dataset['unprivileged_groups'][i])
 
-    tempdf['statisticalParity'] = statisticalParity
-    tempdf['predictiveParity'] = predictiveParity
-    tempdf['fairnessThroughAwareness'] = fairnessThroughAwareness.item()
-    df=pd.concat([df,tempdf])
 
-print(df)
-df.to_csv("output.csv")
+    fairness = fairness.append({'name': meta_dataset['name'][i],
+                                'statisticalParity': statisticalParity,
+                                'predictiveParity': predictiveParity,
+                                'fairnessThroughAwareness': fairnessThroughAwareness.item()}, ignore_index=True)
+    
+    
+
+print(smells)
+print(fairness)
+
+smells.to_csv("output_dsd.csv")
+fairness.to_csv("output_aif360.csv")
