@@ -1,11 +1,14 @@
 name,path,label_name,favorable_classes,protected_attribute_names,privileged_classes,features_to_drop,privileged_groups,unprivileged_groups
 adult income,datasets/adult.csv,income,1,gender,x==0,,gender,gender
+kdd census,datasets/kdd-census.csv,income_level,1,race,x!=0,,race,race
 german credit,datasets/german_credit_data.csv,Risk,0,Age,x >= 25,,Age,Age
+dutch census,datasets/dutch-census.csv,occupation,0,sex,x==1,,sex,sex
 bank marketing,datasets/bank-full.csv,y,1,age,x<25 or x>60,,age,age
 credit card,datasets/credit-card.csv,default.payment.next.month,1,SEX,x==2,,SEX,SEX
 compas recid,datasets/compas-scores-two-years.csv,two_year_recid,0,race,x==3,,race,race
 compas viol,datasets/compas-scores-two-years-violent.csv,two_year_recid,0,race,x==3,,race,race
 diabetes,datasets/diabetic_data.csv,readmitted,2,gender,x==0,,gender,gender
 firefighter promotion,datasets/Firefighter_Promotion_Exam_Scores.csv,promotion,0,race,x==0,,race,race
-student mat,datasets\student-mat.csv,G3,1,sex,x==1,,sex,sex
-student mat,datasets\student-por.csv,G3,1,sex,x==1,,sex,sex
+student mat,datasets/student-mat.csv,G3,1,sex,x==1,,sex,sex
+student mat,datasets/student-por.csv,G3,1,sex,x==1,,sex,sex
+law school,datasets/law-school.csv,pass_bar,1,male,x==1,,male,male
