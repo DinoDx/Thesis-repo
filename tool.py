@@ -27,6 +27,7 @@ for i in range(len(meta_dataset)):
     fairness = pd.concat([
         fairness,
         pd.DataFrame({'name': [meta_dataset['name'][i]],
+                      'attribute':[meta_dataset['protected_attribute_names'][i]],
                       'statisticalParity': [statisticalParity],
                       'predictiveParity': [predictiveParity],
                       'fairnessThroughAwareness': [fairnessThroughAwareness.item()]})
