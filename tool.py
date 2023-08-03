@@ -5,14 +5,18 @@ from fairness import fairness_assessment
 
 
 meta_dataset = pd.read_csv('meta_dataset.csv')
+paths = pd.read_csv('paths.csv')
 fairness = pd.DataFrame()
 smells = pd.DataFrame()
 
-for i in range(len(meta_dataset)):
+for i in range(len(paths)):
 
-    temp_smells = smell_detection(meta_dataset['path'][i])
-    temp_smells['name'] = meta_dataset['name'][i]
+    temp_smells = smell_detection(paths['path'][i])
+    temp_smells['name'] = paths['name'][i]
     smells = pd.concat([smells, temp_smells])
+
+
+for i in range(len(meta_dataset)):
 
     statisticalParity, predictiveParity, fairnessThroughAwareness = fairness_assessment(
         path=meta_dataset['path'][i],

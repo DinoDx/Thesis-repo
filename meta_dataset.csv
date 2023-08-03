@@ -18,7 +18,7 @@ diabetes,datasets/diabetic_data.csv,readmitted,2,gender,x==0,,gender,gender
 firefighter promotion,datasets/Firefighter_Promotion_Exam_Scores.csv,promotion,0,race,x==0,,race,race
 student mat,datasets/student-mat.csv,G3,1,sex,x==1,,sex,sex
 student mat,datasets/student-mat.csv,G3,1,age,x<18,,age,age
-student mat,datasets/student-por.csv,G3,1,sex,x==1,,sex,sex
-student mat,datasets/student-por.csv,G3,1,age,x<18,,age,age
+student por,datasets/student-por.csv,G3,1,sex,x==1,,sex,sex
+student por,datasets/student-por.csv,G3,1,age,x<18,,age,age
 law school,datasets/law-school.csv,pass_bar,1,male,x==1,,male,male
 law school,datasets/law-school.csv,pass_bar,1,racetxt,x==1,,racetxt,racetxt

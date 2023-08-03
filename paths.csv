@@ -1,0 +1,14 @@
+name,path
+adult income,datasets/adult.csv
+kdd census,datasets/kdd-census.csv
+german credit,datasets/german_credit_data.csv
+dutch census,datasets/dutch-census.csv
+bank marketing,datasets/bank-full.csv
+credit card,datasets/credit-card.csv
+compas recid,datasets/compas-scores-two-years.csv
+compas viol,datasets/compas-scores-two-years-violent.csv
+diabetes,datasets/diabetic_data.csv
+firefighter promotion,datasets/Firefighter_Promotion_Exam_Scores.csv
+student mat,datasets/student-mat.csv
+student por,datasets/student-por.csv
+law school,datasets/law-school.csv
