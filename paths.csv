@@ -12,3 +12,9 @@ firefighter promotion,datasets/Firefighter_Promotion_Exam_Scores.csv
 student mat,datasets/student-mat.csv
 student por,datasets/student-por.csv
 law school,datasets/law-school.csv
+credit-g,datasets/credit-g_csv.csv
+hearth disease,datasets/heart_disease.csv
+nursery,datasets/nursery.csv
+speed dating,datasets/speed-dating_csv.csv
+tae,datasets/tae.csv
+titanic,datasets/titanic.csv
