@@ -12,7 +12,7 @@ def smell_detection(path):
     response = requests.post(url_upload, files=files)
     # Verifica lo stato della risposta
     if response.status_code == 200:
-        print("Upload completato con successo.")
+        print("Upload completato con successo." + path)
     else:
         print("Si è verificato un errore durante l'upload.")
 

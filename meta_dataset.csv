@@ -24,9 +24,9 @@ law school,datasets/law-school.csv,pass_bar,1,male,x==1,,male,male
 law school,datasets/law-school.csv,pass_bar,1,racetxt,x==1,,racetxt,racetxt
 credit-g,datasets/credit-g_csv.csv,class,0,personal_status,x==0,,personal_status,personal_status
 credit-g,datasets/credit-g_csv.csv,class,0,age,x>=25,,age,age
-hearth disease,datasets/heart_disease.csv,num,!0,age,x>50,,age,age
-nursery,datasets/nursery.csv,class,!2,parents,x==0,,parents,parents
+hearth disease,datasets/heart_disease.csv,num,1,age,x>50,,age,age
+nursery,datasets/nursery.csv,class,0,parents,x==0,,parents,parents
 speed dating,datasets/speed-dating_csv.csv,match,1,samerace,x==1,,samerace,samerace
 speed dating,datasets/speed-dating_csv.csv,match,1,importance_same_race,x<5,,importance_same_race,importance_same_race
 tae,datasets/tae.csv,Class attribute,3,English speaker,x==2,,English speaker,English speaker
-titanic,datasets/titanic.csv,Survived,1,sex,x==0,,sex,sex
+titanic,datasets/titanic.csv,Survived,1,Sex,x==0,,Sex,Sex
