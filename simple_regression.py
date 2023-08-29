@@ -36,7 +36,7 @@ def correlation(x, y):
 
 dataset = pd.read_csv("final.csv")
 x = dataset["Faulty Element Count"]
-y = dataset["fairnessThroughAwareness"]
+y = dataset["predictiveParity"]
 
 print("covariance = " + str(covariance(x, y)))
 print("coorelation = " + str(correlation(x, y)))

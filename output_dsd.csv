@@ -1,4 +1,4 @@
-,Attribute,Data Smell Type,Total Element Count,Faulty Element Count,Faulty Element Overview,name
+,attribute,Data Smell Type,Total Element Count,Faulty Element Count,Faulty Element Overview,name
 1,age,Extreme Value Smell,48842,186,"[80, 90, 80, 81, 82, 83, 81, 85, 80, 90, 81, 84, 81, 89, 81, 83, 81, 82, 80, 90]",adult income
 2,age,Duplicated Value Smell,48842,48841,"[25, 38, 28, 44, 18, 34, 29, 63, 24, 55, 65, 36, 26, 58, 48, 43, 20, 43, 37, 40]",adult income
 1,capital-gain,Extreme Value Smell,48842,331,"[99999, 27828, 99999, 99999, 99999, 27828, 99999, 99999, 99999, 27828, 25236, 99999, 99999, 99999, 99999, 99999, 27828, 99999, 99999, 99999]",adult income
