@@ -7,8 +7,8 @@ conteggio = df['Data Smell Type'].value_counts()
 print(conteggio)
 
 '''''
-fairness = pd.read_csv('output_aif360.csv')
-smells = pd.read_csv('output_dsd.csv')
+fairness = pd.read_csv('output_aif360_refactored.csv')
+smells = pd.read_csv('output_dsd_refactored.csv')
 
 merged_df = smells.merge(fairness, on=['name', 'attribute'])
 categories_to_include = ['Extreme Value Smell', 'Missing Value Smell', 'Suspect Sign Smell']
@@ -16,7 +16,7 @@ df_filtered = merged_df.loc[merged_df['Data Smell Type'].isin(categories_to_incl
 
 
 print(df_filtered)
-df_filtered.to_csv("final.csv")
+#df_filtered.to_csv("final.csv")
 
 conteggio = df_filtered['Data Smell Type'].value_counts()
 print(conteggio)
