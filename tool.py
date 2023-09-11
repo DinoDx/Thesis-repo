@@ -41,5 +41,5 @@ for i in range(len(meta_dataset)):
 print(smells)
 print(fairness)
 
-smells.to_csv("output_dsd.csv")
-fairness.to_csv("output_aif360.csv")
+smells.to_csv("output_dsd_refactored.csv")
+fairness.to_csv("output_aif360_refactored.csv")

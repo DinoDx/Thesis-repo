@@ -10,7 +10,7 @@ print(conteggio)
 fairness = pd.read_csv('output_aif360.csv')
 smells = pd.read_csv('output_dsd.csv')
 
-merged_df = smells.merge(fairness, on='name')
+merged_df = smells.merge(fairness, on=['name', 'attribute'])
 categories_to_include = ['Extreme Value Smell', 'Missing Value Smell', 'Suspect Sign Smell']
 df_filtered = merged_df.loc[merged_df['Data Smell Type'].isin(categories_to_include)]
 

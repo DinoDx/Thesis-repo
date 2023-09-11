@@ -35,8 +35,21 @@ def correlation(x, y):
 
 
 dataset = pd.read_csv("final.csv")
-x = dataset.loc[dataset["Data Smell Type"] == "Extreme Value Smell", "Faulty Element Count"]
+
+x = dataset.loc[(dataset["Data Smell Type"] == "Extreme Value Smell" ), "Faulty Element Count"]
 y = dataset["statisticalParity"]
+
+'''''
+x = dataset.groupby(["Data Smell Type", "name", "attribute_y"])
+x = x["Faulty Element Count"].sum().reset_index() 
+x = x.loc[(x["Data Smell Type"] == "Extreme Value Smell" ), "Faulty Element Count"]
+print(x)
+
+y = dataset.groupby(["Data Smell Type", "name", "attribute_y"])
+y = y["statisticalParity"].mean().reset_index()
+y = y.loc[(y["Data Smell Type"] == "Extreme Value Smell" ), "statisticalParity"]
+print(y)
+'''''
 
 print("covariance = " + str(covariance(x, y)))
 print("coorelation = " + str(correlation(x, y)))
@@ -44,7 +57,7 @@ print("coorelation = " + str(correlation(x, y)))
 
 data = pd.DataFrame({'x': x, 'y': y})
 
-model = ols("x ~ y", data).fit()
+model = ols("y ~ x", data).fit()
 print(model.summary2())
 
 
