@@ -19,8 +19,8 @@ def fairness_assessment(path, label_name, favorable_classes, protected_attribute
                                                         privileged_groups=[{privileged_groups:1}],
                                                         unprivileged_groups=[{unprivileged_groups:0}])
 
-    statisticalParity = datasetMetrics.disparate_impact()
-    predictiveParity = datasetMetrics.statistical_parity_difference()
-    fairnessThroughAwareness = datasetMetrics.consistency()
+    disparateImpact = datasetMetrics.disparate_impact()
+    statisticalParityDifference = datasetMetrics.statistical_parity_difference()
+    consistency = datasetMetrics.consistency()
 
-    return statisticalParity, predictiveParity, fairnessThroughAwareness
+    return disparateImpact, statisticalParityDifference, consistency

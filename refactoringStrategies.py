@@ -1,8 +1,8 @@
 import pandas as pd
 import ast
 
-datasmell = pd.read_csv('final.csv')
-datasets = pd.read_csv('paths.csv')
+datasmell = pd.read_csv('output/final.csv')
+datasets = pd.read_csv('input/paths.csv')
 
 for i in range(len(datasets)):
 
