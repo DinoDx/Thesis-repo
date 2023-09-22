@@ -25,9 +25,11 @@ def compute_consistency(df):
     num_columns = len(df.columns)
 
     for col_name in df.columns:
-        most_common_type = df[col_name].apply(type).mode()[0]
-        consistent_type_values_count = (df[col_name].apply(type) == most_common_type).sum()
-        total_values_in_column = df[col_name].count()
+        # Rimuovi i valori NaN prima di calcolare il tipo più comune
+        non_nan_values = df[col_name].dropna()
+        most_common_type = non_nan_values.apply(type).mode()[0]
+        consistent_type_values_count = (non_nan_values.apply(type) == most_common_type).sum()
+        total_values_in_column = len(non_nan_values)
         percentage_consistent_type = (consistent_type_values_count / total_values_in_column) * 100
         total_percentages += percentage_consistent_type
 
@@ -47,3 +49,9 @@ def quality_assessment(path):
     readability = (df.applymap(are_all_words_spelled_correctly).sum().sum() / df.size) * 100
 
     return completeness, uniqueness, consistency, readability
+
+'''''
+if __name__=="__main__":
+    completeness, uniqueness, consistency = quality_assessment("datasets/kdd-census.csv")
+    print(completeness, uniqueness, consistency)
+'''''
