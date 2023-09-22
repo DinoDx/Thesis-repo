@@ -2,21 +2,13 @@ import pandas as pd
 from nltk.tokenize import word_tokenize
 from nltk.corpus import words
 
-def are_all_words_spelled_correctly(input_string):
+english_vocab = set(words.words())
 
-    if not isinstance(input_string, str):
-        return True
-    
-    word_tokens = word_tokenize(input_string)
-    english_vocab = set(words.words())
-    
-    # Verifica ciascuna parola nell'elenco
+def are_all_words_spelled_correctly(input_string, english_vocab):
+    word_tokens = word_tokenize(input_string.lower())
     for word in word_tokens:
-        # Verifica se la parola è scritta correttamente
-        if word.lower() not in english_vocab:
+        if word not in english_vocab:
             return False
-    
-    # Se tutte le parole sono scritte correttamente, ritorna True
     return True
 
 
@@ -46,12 +38,15 @@ def quality_assessment(path):
 
     consistency = compute_consistency(df)
 
-    readability = (df.applymap(are_all_words_spelled_correctly).sum().sum() / df.size) * 100
+    readability = (df[df.applymap(lambda x: isinstance(x, str))]
+               .applymap(lambda x: are_all_words_spelled_correctly(x, english_vocab) if isinstance(x, str) else True)
+               .sum()
+               .sum() / df.size) * 100
 
     return completeness, uniqueness, consistency, readability
 
 '''''
 if __name__=="__main__":
-    completeness, uniqueness, consistency = quality_assessment("datasets/kdd-census.csv")
-    print(completeness, uniqueness, consistency)
+    completeness, uniqueness, consistency,readability = quality_assessment("datasets/adult.csv")
+    print(completeness, uniqueness, consistency, readability)
 '''''
