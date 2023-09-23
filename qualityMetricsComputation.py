@@ -19,8 +19,8 @@ def compute_consistency(df):
     for col_name in df.columns:
         # Rimuovi i valori NaN prima di calcolare il tipo più comune
         non_nan_values = df[col_name].dropna()
-        most_common_type = non_nan_values.apply(type).mode()[0]
-        consistent_type_values_count = (non_nan_values.apply(type) == most_common_type).sum()
+        most_common_type = non_nan_values.apply(type).mode().iat[0] if not non_nan_values.empty else None
+        consistent_type_values_count = (non_nan_values.apply(type) == (most_common_type or None)).sum()
         total_values_in_column = len(non_nan_values)
         percentage_consistent_type = (consistent_type_values_count / total_values_in_column) * 100
         total_percentages += percentage_consistent_type
@@ -42,8 +42,11 @@ def quality_assessment(path):
                .applymap(lambda x: are_all_words_spelled_correctly(x, english_vocab) if isinstance(x, str) else True)
                .sum()
                .sum() / df.size) * 100
-
-    return completeness, uniqueness, consistency, readability
+    
+    return pd.DataFrame({'completeness':[completeness], 
+                         'uniqueness':[uniqueness], 
+                         'consistency':[consistency],
+                         'readability': [readability]})
 
 '''''
 if __name__=="__main__":

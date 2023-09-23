@@ -1,4 +1,4 @@
-,name,attribute,statisticalParity,predictiveParity,fairnessThroughAwareness
+,name,attribute,Disparate Impact,Statistical Parity Difference,Consistency
 0,adult income,gender,0.3596552625800337,-0.19451574596420296,0.7743212808648234
 1,adult income,race,0.6005915505110953,-0.10144450514172723,0.7743376602104685
 2,adult income,age,0.2815483619443825,-0.21522898474515983,0.7727570533557097
