@@ -6,7 +6,7 @@ from qualityMetricsComputation import quality_assessment
 
 
 meta_dataset = pd.read_csv('input/meta_dataset.csv')
-paths = pd.read_csv('input/paths.csv')
+paths = pd.read_csv('input/paths_refactored.csv')
 fairness = pd.DataFrame()
 smells = pd.DataFrame()
 quality = pd.DataFrame()
@@ -24,7 +24,7 @@ for i in range(len(paths)):
 for i in range(len(meta_dataset)):
 
     disparateImpact, statisticalParityDifference, consistency = fairness_assessment(
-        path=meta_dataset['path'][i],
+        path=meta_dataset['path'][i].replace('.csv', '_refactored.csv'),
         label_name=meta_dataset['label_name'][i],
         favorable_classes=meta_dataset['favorable_classes'][i],
         protected_attribute_names=meta_dataset['protected_attribute_names'][i],
@@ -47,6 +47,6 @@ print(smells)
 print(fairness)
 print(quality)
 
-smells.to_csv("output/output_dsd_refactored.csv")
-fairness.to_csv("output/output_aif360_refactored.csv")
-quality.to_csv("output/output_quality_refactored.csv")
+smells.to_csv("output/output_dsd_refactored.csv", index=False)
+fairness.to_csv("output/output_aif360_refactored.csv", index=False)
+quality.to_csv("output/output_quality_refactored.csv", index=False)

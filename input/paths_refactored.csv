@@ -1,0 +1,20 @@
+name,path
+adult income,datasets/adult_refactored.csv
+kdd census,datasets/kdd-census_refactored.csv
+german credit,datasets/german_credit_data_refactored.csv
+dutch census,datasets/dutch-census_refactored.csv
+bank marketing,datasets/bank-full_refactored.csv
+credit card,datasets/credit-card_refactored.csv
+compas recid,datasets/compas-scores-two-years_refactored.csv
+compas viol,datasets/compas-scores-two-years-violent_refactored.csv
+diabetes,datasets/diabetic_data_refactored.csv
+firefighter promotion,datasets/Firefighter_Promotion_Exam_Scores_refactored.csv
+student mat,datasets/student-mat_refactored.csv
+student por,datasets/student-por_refactored.csv
+law school,datasets/law-school_refactored.csv
+credit-g,datasets/credit-g_csv_refactored.csv
+hearth disease,datasets/heart_disease_refactored.csv
+nursery,datasets/nursery_refactored.csv
+speed dating,datasets/speed-dating_csv_refactored.csv
+tae,datasets/tae_refactored.csv
+titanic,datasets/titanic_refactored.csv

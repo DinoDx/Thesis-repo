@@ -1,8 +1,8 @@
 import pandas as pd
 import ast
 
-datasmell = pd.read_csv('output/output_dsd.csv')
-datasets = pd.read_csv('input/paths.csv')
+datasmell = pd.read_csv('output/output_dsd_refactored.csv')
+datasets = pd.read_csv('input/paths_refactored.csv')
 
 for i in range(len(datasets)):
 
@@ -23,14 +23,13 @@ for i in range(len(datasets)):
                 #print(attribute, dataset[attribute].values)
 
             elif smell_type == "Missing Value Smell":
-                for element in dataset[attribute]:
-                    if str(element) == "nan":
-                        dataset = dataset.fillna("nan")
-                        dataset = dataset[dataset[attribute] != "nan"]
-                        if len(dataset[attribute]) > 0:
-                            element = dataset[attribute].mode()[0]
-                        else:
-                            dataset.drop(dataset[attribute], axis=1, inplace=True)
+                mode_value = dataset[attribute].mode()
+                
+                if not mode_value.empty:
+                    mode_value = mode_value.iloc[0]
+                    dataset[attribute].fillna(mode_value, inplace=True)
+                else:
+                    dataset.drop(columns=[attribute], inplace=True)
                         #print(attribute, dataset[attribute].values)
 
             elif smell_type == "Suspect Sign Smell":
@@ -40,5 +39,5 @@ for i in range(len(datasets)):
                 dataset[attribute] = dataset[attribute].clip(lower=min_value, upper=max_value)
                 #print(attribute, dataset[attribute].values)
 
-    dataset.to_csv(datasets['path'][i].replace('.csv', '_refactored.csv'))
+    dataset.to_csv(datasets['path'][i], index=False)
     print(datasets['name'][i] + " refactored")
