@@ -5,7 +5,7 @@ df = pd.read_csv("output_dsd.csv")
 conteggio = df['Data Smell Type'].value_counts()
 
 print(conteggio)
-
+'''''
 '''''
 fairness = pd.read_csv('output_aif360_refactored.csv')
 smells = pd.read_csv('output_dsd_refactored.csv')
@@ -20,8 +20,15 @@ print(df_filtered)
 
 conteggio = df_filtered['Data Smell Type'].value_counts()
 print(conteggio)
-
+'''''
 '''''
 grouped = df_filtered.groupby(['Data Smell Type', "name", 'attribute_y'])['Faulty Element Count'].sum()
 print(grouped)
 '''''
+import pandas as pd
+
+df = pd.read_csv('output/output_quality_refactored.csv')
+
+df_filtered = df[~df["attribute"].str.contains("Unnamed")]
+
+df_filtered.to_csv('output/output_quality_refactored.csv', index=False)
