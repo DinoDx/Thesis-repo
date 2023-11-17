@@ -1,70 +1,47 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
-from statsmodels.formula.api import ols
+import statsmodels.api as sm
 
+smells= pd.read_csv('output/output_dsd.csv')
+fairness = pd.read_csv('output/output_aif360.csv')
+quality = pd.read_csv('output/output_quality.csv')
+final = pd.read_csv('final.csv')
 
-def covariance(x, y):
-    # Finding the mean of the series x and y
-    mean_x = sum(x)/float(len(x))
-    mean_y = sum(y)/float(len(y))
-    # Subtracting mean from the individual elements
-    sub_x = [i - mean_x for i in x]
-    sub_y = [i - mean_y for i in y]
-    numerator = sum([sub_x[i]*sub_y[i] for i in range(len(sub_x))])
-    denominator = len(x)-1
-    cov = numerator/denominator
-    return cov
-
-def correlation(x, y):
-    # Finding the mean of the series x and y
-    mean_x = sum(x)/float(len(x))
-    mean_y = sum(y)/float(len(y))
-    # Subtracting mean from the individual elements
-    sub_x = [i-mean_x for i in x]
-    sub_y = [i-mean_y for i in y]
-    # covariance for x and y
-    numerator = sum([sub_x[i]*sub_y[i] for i in range(len(sub_x))])
-    # Standard Deviation of x and y
-    std_deviation_x = sum([sub_x[i]**2.0 for i in range(len(sub_x))])
-    std_deviation_y = sum([sub_y[i]**2.0 for i in range(len(sub_y))])
-    # squaring by 0.5 to find the square root
-    denominator = (std_deviation_x*std_deviation_y)**0.5 # short but equivalent to (std_deviation_x**0.5) * (std_deviation_y**0.5)
-    cor = numerator/denominator
-    return cor
-
-
-dataset = pd.read_csv("final.csv")
-
-x = dataset.loc[(dataset["Data Smell Type"] == "Extreme Value Smell" ), "Faulty Element Count"]
-y = dataset["statisticalParity"]
+merged_df = smells.merge(quality, on=['name', 'attribute'])
+result = merged_df.pivot(index=['attribute', 'name'], columns='Data Smell Type', values=['Faulty Element Count']).reset_index()
+result.columns = ['attribute', 'name'] + [f'{col[0]}_{col[1]}' for col in result.columns[2:]]
+merged_df = pd.merge(result, merged_df[['attribute', 'name', 'completeness', 'uniqueness', 'consistency', 'readability']], on=['attribute', 'name'], how='left')
+merged_df = merged_df.fillna(0)
+merged_df = merged_df.drop_duplicates()
 
 '''''
-x = dataset.groupby(["Data Smell Type", "name", "attribute_y"])
-x = x["Faulty Element Count"].sum().reset_index() 
-x = x.loc[(x["Data Smell Type"] == "Extreme Value Smell" ), "Faulty Element Count"]
-print(x)
-
-y = dataset.groupby(["Data Smell Type", "name", "attribute_y"])
-y = y["statisticalParity"].mean().reset_index()
-y = y.loc[(y["Data Smell Type"] == "Extreme Value Smell" ), "statisticalParity"]
-print(y)
+# for fairness metrics regression
+merged_df = smells.merge(fairness, on=['name', 'attribute'])
+result = merged_df.pivot(index=['attribute', 'name'], columns='Data Smell Type', values=['Faulty Element Count']).reset_index()
+result.columns = ['attribute', 'name'] + [f'{col[0]}_{col[1]}' for col in result.columns[2:]]
+merged_df = pd.merge(result, merged_df[['attribute', 'name', 'Disparate Impact', 'Statistical Parity Difference', 'Consistency']], on=['attribute', 'name'], how='left')
+merged_df['Faulty Element Count_Suspect Sign Smell'] = 0.0
+merged_df = merged_df.fillna(0)
+merged_df = merged_df.drop_duplicates()
 '''''
 
-print("covariance = " + str(covariance(x, y)))
-print("coorelation = " + str(correlation(x, y)))
+x1 = merged_df['Faulty Element Count_Extreme Value Smell']
+x2 = merged_df['Faulty Element Count_Missing Value Smell']
+x3 = merged_df['Faulty Element Count_Suspect Sign Smell']
 
 
-data = pd.DataFrame({'x': x, 'y': y})
+#y = merged_df['Disparate Impact']
+#y = merged_df['Statistical Parity Difference']
+#y = merged_df['Consistency']
+y = merged_df['completeness']
+#y = merged_df['uniqueness']
+#y = merged_df['consistency']
+#y = merged_df['readability']
 
-model = ols("y ~ x", data).fit()
+data = pd.DataFrame({'x1': x1, 'x2' : x2, 'x3': x3, 'Consistency': y})
+data = sm.add_constant(data)
+model = sm.OLS(data['Consistency'], data[['const', 'x1', 'x2', 'x3']]).fit()
 print(model.summary2())
 
-
-offset, coef = model._results.params
-plt.plot(x, x*coef + offset)
-plt.xlabel('Faulty Element Count Extreme Value Smell')
-plt.ylabel('Statistical Parity')
-
-plt.show()
 
