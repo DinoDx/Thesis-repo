@@ -8,12 +8,14 @@ fairness = pd.read_csv('output/output_aif360.csv')
 quality = pd.read_csv('output/output_quality.csv')
 final = pd.read_csv('final.csv')
 
-merged_df = smells.merge(quality, on=['name', 'attribute'])
+merged_df = smells.merge(quality, on=['name', 'attribute'], how='right')
 result = merged_df.pivot(index=['attribute', 'name'], columns='Data Smell Type', values=['Faulty Element Count']).reset_index()
 result.columns = ['attribute', 'name'] + [f'{col[0]}_{col[1]}' for col in result.columns[2:]]
 merged_df = pd.merge(result, merged_df[['attribute', 'name', 'completeness', 'uniqueness', 'consistency', 'readability']], on=['attribute', 'name'], how='left')
 merged_df = merged_df.fillna(0)
 merged_df = merged_df.drop_duplicates()
+merged_df = merged_df.drop('Faulty Element Count_nan', axis=1)
+
 
 '''''
 # for fairness metrics regression
